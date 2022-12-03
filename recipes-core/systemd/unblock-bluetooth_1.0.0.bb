@@ -9,5 +9,5 @@ FILES:${PN} += "${systemd_unitdir}/system/unblock-bluetooth.service"
 
 do_install:append() {
   install -d ${D}/${systemd_unitdir}/system
-  install -m 0744 ${WORKDIR}/unblock-bluetooth.service ${D}/${systemd_unitdir}/system
+  install -m 0644 ${WORKDIR}/unblock-bluetooth.service ${D}/${systemd_unitdir}/system
 }
