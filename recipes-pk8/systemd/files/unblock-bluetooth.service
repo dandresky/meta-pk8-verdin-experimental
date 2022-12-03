@@ -1,0 +1,9 @@
+[Unit]
+Description=Script to unblock bluetooth on Verdin boards
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/sbin/rfkill unblock all
+
+[Install]
+WantedBy=multi-user.target
