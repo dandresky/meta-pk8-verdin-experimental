@@ -1,9 +1,8 @@
-This README file contains information on the contents of the meta-pk8-verdin-experimental layer.
+# <span style="color:teal">Verdin Experimental Meta Layer</span>
 
-Please see the corresponding sections below for details.
+This layer contains experimental recipes and other modifications to the Toradex Yocto project. Intent of this layer is to experiment and learn how to make needed changes. 
 
-Dependencies
-============
+## <span style="color:orange">Dependencies</span>
 
   URI: <first dependency>
   branch: <branch name>
@@ -15,27 +14,28 @@ Dependencies
   .
   .
 
-Patches
-=======
+## <span style="color:orange">Adding the meta-pk8-verdin-experimental layer to your build</span>
 
-Please submit any patches against the meta-pk8-verdin-experimental layer to the xxxx mailing list (xxxx@zzzz.org)
-and cc: the maintainer:
+```
+bitbake-layers add-layer meta-pk8-verdin-experimental
+```
 
-Maintainer: XXX YYYYYY <xxx.yyyyyy@zzzzz.com>
+# <span style="color:teal">Experiments</span>
 
-Table of Contents
-=================
+The following modifications are made in the context of the tdx-reference-minimal image.
 
-  I. Adding the meta-pk8-verdin-experimental layer to your build
- II. Misc
+## <span style="color:orange">Unblocking Bluetooth</span>
 
+The issue is that after a fresh install, bluetooth is not operational. Running the **rfkill list** command reveals that wlan and bluetooth are both "soft blocked". I can manually unblock and then reboot the machine to get bluetooth working but that is not ideal so I need to fix this in the yocto build.
 
-I. Adding the meta-pk8-verdin-experimental layer to your build
-=================================================
+Checking the status of the bluetooth service reveals a potential problem:
 
-Run 'bitbake-layers add-layer meta-pk8-verdin-experimental'
+```
+$ systemctl status bluetooth
+...
+verdin-imx8mp-07331488 systemd[706]: ConfigurationDirectory 'bluetooth' already exists but the mode is different. (File system: 755 ConfigurationDirectoryMode: 555)
+...
+```
 
-II. Misc
-========
+In the **/lib/systemd/system/bluetooth.service** file, I changed ConfigurationDirectoryMode from 555 to 755. This reconciles the /etc/bluetooth directory created by bluez with mode 0755 with the service unit's key-value setting of 0555. While the warning message went away, bluetooth is still blocked. 
 
---- replace with specific information about the meta-pk8-verdin-experimental layer ---
