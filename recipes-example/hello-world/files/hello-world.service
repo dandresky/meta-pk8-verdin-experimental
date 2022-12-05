@@ -1,0 +1,9 @@
+[Unit]
+Description=Run the hello-world app on bootup. Practice to add service to Yocto image.
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/hello-world
+
+[Install]
+WantedBy=multi-user.target

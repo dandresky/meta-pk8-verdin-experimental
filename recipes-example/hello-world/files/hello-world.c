@@ -1,6 +1,8 @@
 #include <stdio.h>
 
 int main() {
-   printf("Hello, from the Verdin iMX8MP CoM!");
+   printf("\n\n*********************************************************\n");
+   printf("\nHello, from the Verdin iMX8MP CoM!\n");
+   printf("\n**********************************************************\n\n");
    return 0;
 }
