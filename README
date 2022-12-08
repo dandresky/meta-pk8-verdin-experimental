@@ -20,6 +20,8 @@ This layer contains experimental recipes and other modifications to the Toradex 
 bitbake-layers add-layer meta-pk8-verdin-experimental
 ```
 
+&nbsp;
+
 # <span style="color:teal">Experiments</span>
 
 The following modifications are made in the context of the tdx-reference-minimal image.
@@ -38,4 +40,12 @@ verdin-imx8mp-07331488 systemd[706]: ConfigurationDirectory 'bluetooth' already 
 ```
 
 In the **/lib/systemd/system/bluetooth.service** file, I changed ConfigurationDirectoryMode from 555 to 755. This reconciles the /etc/bluetooth directory created by bluez with mode 0755 with the service unit's key-value setting of 0555. While the warning message went away, bluetooth is still blocked. 
+
+&nbsp;
+
+# <span style="color:teal">Getting a browser up and running</span>
+
+WPE WebKit (former WebKitForWayland), is the official webKit port for embedded platforms. It aims to allow embedded developers to create simple and performant systems based on Web platform technologies. It is designed with hardware acceleration in mind, leveraging common 3D graphics APIs for best performance. For this experiment I followed [this Toradex article](https://developer.toradex.com/linux-bsp/application-development/gui/how-to-use-web-browser-linux/).
+
+First issue is that I am using Kirkstone branches for the Yocto project and its meta layers. Webkit only supports up to Dunfell at the moment.
 
